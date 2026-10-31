@@ -13,7 +13,8 @@ Despite its lightweight design, DeepGEMM's performance matches or exceeds expert
     Cores: **native FP8 GEMMs** (`fp8_gemm_*`, both the 1D1D and 1D2D scaling recipes) built on
     `mma.sync.m16n8k32` + `ldmatrix` + `cp.async`, reaching ~85% of cuBLASLt FP8 on Ada, plus
     cuBLASLt-backed BF16 GEMMs. See
-    [docs/architecture_support.md](docs/architecture_support.md) for the porting notes.
+    [docs/architecture_support.md](docs/architecture_support.md) for the porting notes and
+    [docs/writeup.md](docs/writeup.md) for the comprehensive architecture, memory flow, and NCU profiling writeup.
   - Fixed the cuBLASLt fallback silently running BF16 GEMMs at TF32 precision
     (`CUBLAS_COMPUTE_32F_FAST_TF32` is now only used for genuine FP32 inputs).
   - Note: NVIDIA **SM80 (Ampere) has no FP8 Tensor Cores** and is not a supported target.
@@ -78,7 +79,9 @@ ragged shapes, determinism), BF16 GEMMs in every operand layout, the FP32 scalin
 kernels, and the explicit error paths for operations SM89 cannot perform. It skips itself
 automatically on other architectures, so it is safe to run from a cross-architecture CI matrix.
 For the detailed architecture matrix and the SM89 porting notes, refer to
-[docs/architecture_support.md](docs/architecture_support.md).
+[docs/architecture_support.md](docs/architecture_support.md). For an in-depth technical writeup
+covering the memory hierarchy, 128-byte XOR swizzle math, asynchronous software pipelining, and
+NCU profiling analysis, consult [docs/writeup.md](docs/writeup.md).
 
 ## Interfaces
 
