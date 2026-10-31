@@ -117,6 +117,10 @@ i.e. ~85 % of cuBLASLt, which is a reasonable target given that Ada has no TMA (
 tensor copies, no `tensormap.replace`) while cuBLASLt ships hand-tuned SASS for the same
 architecture.
 
+For an extensive technical dive into the memory flow, conflict-free 128-byte XOR swizzling,
+asynchronous software pipelining, and NCU performance counters, see
+[docs/writeup.md](writeup.md).
+
 ---
 
 ## SM80 (Ampere)
